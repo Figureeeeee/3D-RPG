@@ -7,3 +7,5 @@ Logs/
 Packages/
 Temp/
 UserSettings/
+obj
+.vs
