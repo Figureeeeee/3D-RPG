@@ -33,3 +33,5 @@ MouseManager的逻辑是通过鼠标点击事件获取一个Vector3的参数，�
 人走到树等障碍物之后会被遮挡住：这里用Shader Graph创建被遮挡后的材质，然后通过urp（通用渲染管线，可编辑）去设置（人物被遮挡时和不被遮挡时的材质），之后可以补一下shader和渲染管线的知识qwq
 被树等障碍物遮挡到的地方无法移动过去：可以将所有树的图层都设置为IgnoreRaycast也可以将树的MeshCollider组件关闭（因为在MouseManager中目标点的位置就是通过collider获取的）
 9. 实现了点击Enemy，Player会转向Enemy并移动过去，进行一次攻击的动画，可通过点击地面其他位置提前取消动作
+10. 跟随人物的相机增设一个CinemachineFreeLook，可以通过键鼠去改变跟随人物的相机视角
+11. 脚本实现Enemy在一定范围内找到Player
