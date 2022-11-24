@@ -23,6 +23,8 @@ public class MouseManager : MonoBehaviour
 
     // 事件，在Inspector面板将人物NavMashAgent的destination绑定到该事件
     public event Action<Vector3> OnMouseClicked;
+    // 点击敌人事件
+    public event Action<GameObject> OnEnemyClicked;
 
     private void Awake()
     {
@@ -53,7 +55,9 @@ public class MouseManager : MonoBehaviour
                 case "Ground":
                     Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
                     break;
-                
+                case "Enemy":
+                    Cursor.SetCursor(attack, new Vector2(16, 16), CursorMode.Auto);
+                    break;
             }
         }
     }
@@ -67,7 +71,9 @@ public class MouseManager : MonoBehaviour
             // 如果碰撞信息的碰撞体标签为Ground，就执行
             if (hitInfo.collider.gameObject.CompareTag("Ground"))
                 // 鼠标点击事件不为空就将NavMashAgent的destination改为hitInfo的point，即鼠标点击的位置
-                OnMouseClicked?.Invoke(hitInfo.point); 
+                OnMouseClicked?.Invoke(hitInfo.point);
+            if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+                OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
         }
     }
 }
