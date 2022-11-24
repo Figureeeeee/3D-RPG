@@ -27,7 +27,7 @@ Unity版本：2021.3.6
 4. 然后是脚本实现人物移动，功能实现大致描述：使用NavMeshAgent组件和一个名为MouseManager的CSharp脚本（该脚本挂载在游戏场景中的一个空物体身上）
 MouseManager的逻辑是通过鼠标点击事件获取一个Vector3的参数，这个参数绑定了Player身上的NavMeshAgent组件的destination，可以获取目标点的值，然后在定义一个射线，射线由相机指向destination目标点，并返回一个hitInfo，如果鼠标左键点击到了地面就将值传回给destination，这样就实现了人物移动
 5. 通过单例模式去实现向鼠标触发事件中添加行为比如：MoveToTarget
-6. 优化了鼠标指针的外观（还是单独设置的好看hhh）
+6. 优化了鼠标指针的外观（还是单独设置的好看hhh），以及相机跟随（cinemachine）
 7. Animator Blend Tree实现人物动画（站立、走路）
 8. 解决一下潜在问题：
 人走到树等障碍物之后会被遮挡住：这里用Shader Graph创建被遮挡后的材质，然后通过urp（通用渲染管线，可编辑）去设置（人物被遮挡时和不被遮挡时的材质），之后可以补一下shader和渲染管线的知识qwq
