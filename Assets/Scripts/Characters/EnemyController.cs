@@ -112,7 +112,7 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyStates.CHASE:
                 
-                //TODO:配合动画
+                // 配合动画
                 isWalk = false;
                 isChase = true;
 
@@ -222,7 +222,7 @@ public class EnemyController : MonoBehaviour
         float randomZ = Random.Range(-patrolRange, patrolRange);
 
         Vector3 randomPoint = new Vector3(guardPos.x + randomX, transform.position.y, guardPos.z + randomZ);
-        // FIXME:可能出现的问题
+
         NavMeshHit hit;
         wayPoint = NavMesh.SamplePosition(randomPoint, out hit, patrolRange, 1) ? hit.position : transform.position;
     }
@@ -231,5 +231,16 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, sightRadius);
+    }
+
+    // Animation Event
+    void Hit()
+    {
+        if(attackTarget != null)
+        {
+            var targetStats = attackTarget.GetComponent<CharacterStats>();
+
+            targetStats.TakeDamage(characterStats, targetStats);
+        }
     }
 }
