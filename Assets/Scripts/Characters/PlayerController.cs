@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private GameObject attackTarget;
     private float lastAttackTime;
 
+    private bool isDead;
+
     // 自身变量的获取放在Awake当中
     private void Awake()
     {
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        isDead = characterStats.CurrentHealth == 0;
+
         SwitchAnimation();
 
         lastAttackTime -= Time.deltaTime;
@@ -43,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private void SwitchAnimation()
     {
         anim.SetFloat("Speed", agent.velocity.sqrMagnitude);
+        anim.SetBool("Death", isDead);
     }
 
     public void MoveToTarget(Vector3 target)
