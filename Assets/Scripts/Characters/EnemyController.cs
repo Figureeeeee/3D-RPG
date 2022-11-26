@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public enum EnemyStates { GUARD, PATROL, CHASE, DEAD }
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(CharacterStats))]
 
 public class EnemyController : MonoBehaviour, IEndGameObserver
 {
@@ -66,29 +67,29 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
             enemyStates = EnemyStates.PATROL;
             GetNewWayPoint();
         }
-    }
 
-    void OnEnable()
-    {
-        Debug.Log("Add Slime");
+        // FIXME:场景切换后修改掉   
         GameManager.Instance.AddObserver(this);
     }
 
+    //void OnEnable()
+    //{
+    //    GameManager.Instance.AddObserver(this);
+    //}
+
     void OnDisable()
     {
-        Debug.Log("Remove Slime");
-        GameManager.Instance.RemoveOvserver(this);
+        if (!GameManager.IsInitialized) return;
+        // GameManager.Instance.RemoveOvserver(this);
     }
 
     private void Update()
     {
         if(characterStats.CurrentHealth == 0)
         {
-            Debug.Log("Slime Dead!");
             isDead = true;
         }
 
-        Debug.Log(playerDead);
         if(!playerDead)
         {
             SwitchStates();
@@ -99,7 +100,6 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
 
     void SwitchAnimation()
     {
-        Debug.Log("SwitchAnimation");
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
@@ -109,7 +109,6 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
 
     void SwitchStates()
     {
-        Debug.Log("SwitchStates");
         if(isDead)
         {
             enemyStates = EnemyStates.DEAD;
@@ -302,7 +301,6 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         // 获胜动画
         // 停止所有移动
         // 停止Agent
-        Debug.Log("广播");
         anim.SetBool("Win", true);
         playerDead = true;
         isChase = false;
