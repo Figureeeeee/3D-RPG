@@ -11,10 +11,8 @@ using System;
     public class EventVector3 : UnityEvent<Vector3> { }
 */
 
-public class MouseManager : MonoBehaviour
+public class MouseManager : Singleton<MouseManager>
 {
-    public static MouseManager Instance;
-
     // 鼠标指针图像
     public Texture2D point, doorway, attack, target, arrow;
 
@@ -26,12 +24,10 @@ public class MouseManager : MonoBehaviour
     // 点击敌人事件
     public event Action<GameObject> OnEnemyClicked;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null)
-            Destroy(gameObject);
-
-        Instance = this;
+        base.Awake();
+        //DontDestroyOnLoad(this);
     }
 
     void Update()

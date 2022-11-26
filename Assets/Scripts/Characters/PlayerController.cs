@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private CharacterStats characterStats;
 
+    private Collider coll;
+
     private GameObject attackTarget;
     private float lastAttackTime;
 
@@ -22,22 +24,31 @@ public class PlayerController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        coll = GetComponent<Collider>();
         characterStats = GetComponent<CharacterStats>();
     }
 
     private void Start()
     {
+        characterStats.CurrentHealth = characterStats.Maxhealth;
+
         // 这个脚本生命周期开始就通过单例模式将MoveToTarget添加到OnMouseClicked事件中去
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
-
         MouseManager.Instance.OnEnemyClicked += EventAttack;
 
-        characterStats.Maxhealth = 2;
+        GameManager.Instance.RegisterPlayer(characterStats);
     }
 
     private void Update()
     {
         isDead = characterStats.CurrentHealth == 0;
+
+        if(isDead)
+        {
+            Debug.Log("Player Dead!!");
+            //coll.enabled = false;
+            GameManager.Instance.NotifyObservers();
+        }
 
         SwitchAnimation();
 

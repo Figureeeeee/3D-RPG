@@ -8,7 +8,7 @@ public enum EnemyStates { GUARD, PATROL, CHASE, DEAD }
 
 [RequireComponent(typeof(NavMeshAgent))]
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IEndGameObserver
 {
     private EnemyStates enemyStates;
     private NavMeshAgent agent;
@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
     bool isChase;
     bool isFollow;
     bool isDead;
+    bool playerDead;
 
     private void Awake()
     {
@@ -54,6 +55,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        characterStats.CurrentHealth = characterStats.Maxhealth;
+
         if(isGuard)
         {
             enemyStates = EnemyStates.GUARD;
@@ -65,6 +68,18 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        Debug.Log("Add Slime");
+        GameManager.Instance.AddObserver(this);
+    }
+
+    void OnDisable()
+    {
+        Debug.Log("Remove Slime");
+        GameManager.Instance.RemoveOvserver(this);
+    }
+
     private void Update()
     {
         if(characterStats.CurrentHealth == 0)
@@ -72,13 +87,19 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Slime Dead!");
             isDead = true;
         }
-        SwitchStates();
-        SwitchAnimation();
-        lastAttackTime -= Time.deltaTime;
+
+        Debug.Log(playerDead);
+        if(!playerDead)
+        {
+            SwitchStates();
+            SwitchAnimation();
+            lastAttackTime -= Time.deltaTime;
+        }
     }
 
     void SwitchAnimation()
     {
+        Debug.Log("SwitchAnimation");
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
@@ -88,6 +109,7 @@ public class EnemyController : MonoBehaviour
 
     void SwitchStates()
     {
+        Debug.Log("SwitchStates");
         if(isDead)
         {
             enemyStates = EnemyStates.DEAD;
@@ -273,5 +295,18 @@ public class EnemyController : MonoBehaviour
 
             targetStats.TakeDamage(characterStats, targetStats);
         }
+    }
+
+    public void EndNotify()
+    {
+        // 获胜动画
+        // 停止所有移动
+        // 停止Agent
+        Debug.Log("广播");
+        anim.SetBool("Win", true);
+        playerDead = true;
+        isChase = false;
+        isWalk = false;
+        attackTarget = null;
     }
 }
