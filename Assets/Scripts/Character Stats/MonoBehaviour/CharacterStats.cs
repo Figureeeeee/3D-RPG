@@ -67,7 +67,7 @@ public class CharacterStats : MonoBehaviour
         if(isCritical)
         {
             coreDamage *= attackData.criticalMultiplier;
-            Debug.Log("暴击：" + coreDamage);
+            //Debug.Log("暴击：" + coreDamage);
         }
 
         return (int)coreDamage;
