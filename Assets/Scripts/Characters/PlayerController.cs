@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead;
 
+    private float stopDistance;
+
     // 自身变量的获取放在Awake当中
     private void Awake()
     {
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider>();
         characterStats = GetComponent<CharacterStats>();
+
+        stopDistance = agent.stoppingDistance;
     }
 
     private void Start()
@@ -65,6 +69,8 @@ public class PlayerController : MonoBehaviour
         StopAllCoroutines();
 
         if (isDead) return;
+
+        agent.stoppingDistance = stopDistance;
         agent.isStopped = false;
         agent.destination = target;
     }
@@ -83,6 +89,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveToAttackTarget()
     {
         agent.isStopped = false;
+        agent.stoppingDistance = characterStats.attackData.attackRange;
+
         transform.LookAt(attackTarget.transform);
 
         while (Vector3.Distance(attackTarget.transform.position, transform.position) > characterStats.attackData.attackRange)
@@ -105,8 +113,20 @@ public class PlayerController : MonoBehaviour
     // Animation Event
     void Hit()
     {
-        var targetStats = attackTarget.GetComponent<CharacterStats>();
+        if(attackTarget.CompareTag("Attackable"))
+        {
+            if (attackTarget.GetComponent<Rock>() && attackTarget.GetComponent<Rock>().rockStates == Rock.RockStates.HitNothing)
+            {
+                attackTarget.GetComponent<Rock>().rockStates = Rock.RockStates.HitEnemy;
+                attackTarget.GetComponent<Rigidbody>().velocity = Vector3.one;
+                attackTarget.GetComponent<Rigidbody>().AddForce(transform.forward * 20, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            var targetStats = attackTarget.GetComponent<CharacterStats>();
 
-        targetStats.TakeDamage(characterStats, targetStats);
+            targetStats.TakeDamage(characterStats, targetStats);
+        }
     }
 }
