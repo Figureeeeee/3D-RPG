@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    public event Action<int, int> UpdateHealthBarOnAttack;
+
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public AttackData_SO attackData;
@@ -57,6 +60,7 @@ public class CharacterStats : MonoBehaviour
         }
 
         // TODO:Update UI
+        UpdateHealthBarOnAttack?.Invoke(CurrentHealth, Maxhealth);
         // TODO:经验update
     }
 
@@ -64,6 +68,7 @@ public class CharacterStats : MonoBehaviour
     {
         int currentDamage = Mathf.Max(damage - defender.CurrentDefence, 0);
         CurrentHealth = Mathf.Max(CurrentHealth - currentDamage, 0);
+        UpdateHealthBarOnAttack?.Invoke(CurrentHealth, Maxhealth);
     }
 
     private int CurrentDamage()

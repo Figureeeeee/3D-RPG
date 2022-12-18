@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4902798593738787563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7387145985835945797}
+  m_Layer: 0
+  m_Name: HealthBar Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7387145985835945797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4902798593738787563}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.62, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6203594049994357192}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6203594049484087283
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +233,7 @@ GameObject:
   - component: {fileID: 6203594050075478433}
   - component: {fileID: 6203594050075478434}
   - component: {fileID: 6203594050075478435}
+  - component: {fileID: 1420085316813259730}
   m_Layer: 0
   m_Name: Grunt
   m_TagString: Enemy
@@ -223,6 +255,7 @@ Transform:
   m_Children:
   - {fileID: 6203594051039703474}
   - {fileID: 6203594050681431599}
+  - {fileID: 7387145985835945797}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -78.021, z: 0}
@@ -314,6 +347,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1420085316813259730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203594049994357302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56815e2a7f9153547af882cba3888181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUIPrefab: {fileID: 5929792652625581794, guid: 023280b83e7fe854a88feeada1775414, type: 3}
+  barPoint: {fileID: 7387145985835945797}
+  alwaysVisible: 0
+  visibleTime: 0
 --- !u!1 &6203594050154440646
 GameObject:
   m_ObjectHideFlags: 0
