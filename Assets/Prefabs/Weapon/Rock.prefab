@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f3a4185756544c382cb0f06d871965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rockStates: 0
   force: 25
   target: {fileID: 0}
   damage: 8
+  breakEffect: {fileID: 2383123108435262491, guid: c0b944428d8005c42ba35ee33dad3e9a, type: 3}
 --- !u!54 &7836863324770378499
 Rigidbody:
   m_ObjectHideFlags: 0
