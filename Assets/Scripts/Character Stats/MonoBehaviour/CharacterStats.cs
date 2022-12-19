@@ -59,9 +59,13 @@ public class CharacterStats : MonoBehaviour
             defender.GetComponent<Animator>().SetTrigger("Hit");
         }
 
-        // TODO:Update UI
+        // Update UI
         UpdateHealthBarOnAttack?.Invoke(CurrentHealth, Maxhealth);
-        // TODO:经验update
+        // 增加经验
+        if(CurrentHealth <= 0)
+        {
+            attacker.characterData.UpdateExp(characterData.killPoint);
+        }
     }
 
     public void TakeDamage(int damage, CharacterStats defender)
@@ -69,6 +73,8 @@ public class CharacterStats : MonoBehaviour
         int currentDamage = Mathf.Max(damage - defender.CurrentDefence, 0);
         CurrentHealth = Mathf.Max(CurrentHealth - currentDamage, 0);
         UpdateHealthBarOnAttack?.Invoke(CurrentHealth, Maxhealth);
+
+        // 用石头反击杀死石头人获得经验值(GamaManager.Instance.xxx)
     }
 
     private int CurrentDamage()
