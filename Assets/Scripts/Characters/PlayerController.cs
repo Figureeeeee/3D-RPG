@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        characterStats.CurrentHealth = characterStats.Maxhealth;
+        // characterStats.CurrentHealth = characterStats.Maxhealth;
         
         GameManager.Instance.RegisterPlayer(characterStats);
     }
