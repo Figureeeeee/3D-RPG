@@ -1638,6 +1638,8 @@ GameObject:
   - component: {fileID: 5494259050131403862}
   - component: {fileID: 5494259050131403861}
   - component: {fileID: 385627448}
+  - component: {fileID: 385627459}
+  - component: {fileID: 385627453}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1699,7 +1701,7 @@ NavMeshAgent:
   m_AngularSpeed: 800
   m_StoppingDistance: 1.2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.4
   m_BaseOffset: 0
@@ -1731,6 +1733,38 @@ CapsuleCollider:
   m_Height: 1.4
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!54 &385627459
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805298448432435022}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &385627453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805298448432435022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8e715bfaf9d4850a5ed5ddaa508998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  templateData: {fileID: 0}
+  characterData: {fileID: 11400000, guid: 1fdbe7549761d4dcf94ca0af62cbd961, type: 2}
+  attackData: {fileID: 11400000, guid: 16c548d08170045698b14dc956da607c, type: 2}
+  isCritical: 0
 --- !u!1 &5805298448432435024
 GameObject:
   m_ObjectHideFlags: 0

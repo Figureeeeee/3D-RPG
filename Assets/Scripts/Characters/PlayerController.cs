@@ -32,15 +32,25 @@ public class PlayerController : MonoBehaviour
         stopDistance = agent.stoppingDistance;
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        characterStats.CurrentHealth = characterStats.Maxhealth;
-
         // 这个脚本生命周期开始就通过单例模式将MoveToTarget添加到OnMouseClicked事件中去
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
+    }
 
+    private void Start()
+    {
+        characterStats.CurrentHealth = characterStats.Maxhealth;
+        
         GameManager.Instance.RegisterPlayer(characterStats);
+    }
+
+    private void OnDisable()
+    {
+        if (!MouseManager.IsInitialized) return;
+        MouseManager.Instance.OnMouseClicked -= MoveToTarget;
+        MouseManager.Instance.OnEnemyClicked -= EventAttack;
     }
 
     private void Update()
