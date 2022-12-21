@@ -690,6 +690,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5424620133858853894, guid: 8aeda1e2ba02ba44697397f1d2e3ca11, type: 3}
+      propertyPath: destinationTag
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7855060351254083300, guid: 8aeda1e2ba02ba44697397f1d2e3ca11, type: 3}
       propertyPath: sceneName
       value: SampleScene

@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : Singleton<SaveManager>
 {
+    string sceneName = "level";
+
+    public string Scene { get { return PlayerPrefs.GetString(sceneName); } }
+
     protected override void Awake()
     {
         base.Awake();
@@ -12,6 +17,10 @@ public class SaveManager : Singleton<SaveManager>
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneController.Instance.TransitionToMain();
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SavePlayerData();
@@ -37,6 +46,7 @@ public class SaveManager : Singleton<SaveManager>
     {
         var jsonData = JsonUtility.ToJson(data, true);
         PlayerPrefs.SetString(key, jsonData);
+        PlayerPrefs.SetString(sceneName, SceneManager.GetActiveScene().name);
         PlayerPrefs.Save();
     }
 

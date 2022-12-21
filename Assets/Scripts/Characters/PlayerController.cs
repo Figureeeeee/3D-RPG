@@ -37,13 +37,14 @@ public class PlayerController : MonoBehaviour
         // 这个脚本生命周期开始就通过单例模式将MoveToTarget添加到OnMouseClicked事件中去
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
+        GameManager.Instance.RegisterPlayer(characterStats);
     }
 
     private void Start()
     {
         // characterStats.CurrentHealth = characterStats.Maxhealth;
         
-        GameManager.Instance.RegisterPlayer(characterStats);
+        SaveManager.Instance.LoadPlayerData();
     }
 
     private void OnDisable()
